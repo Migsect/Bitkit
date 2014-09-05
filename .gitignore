@@ -4,6 +4,7 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
+.classpath
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -34,3 +35,4 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+/bin/

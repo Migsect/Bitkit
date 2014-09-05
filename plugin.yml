@@ -1,0 +1,20 @@
+name: Bitkit
+main: me.migsect.Bitkit.Bitkit
+version: 0.0
+description: Adds additional tools/adjustments for creative mode.
+author: Migsect
+commands: 
+    .:
+        description: This is the hub command for the plugin.
+        usage: /<command>
+permissions:
+    bitkit.*:
+        description: Gives access to all PlayerGroups commands.
+        children:
+            bitkit.user: true
+        default: OP
+    arenas.user:
+        description:
+        children:
+            bitkit.node: true
+        default: true
