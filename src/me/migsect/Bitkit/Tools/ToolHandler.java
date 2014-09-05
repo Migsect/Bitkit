@@ -9,5 +9,9 @@ public class ToolHandler
 	//  - Right Click
 	//  - Left Click
 	//  - Shift Right Click
-	//  - 
+	//  - Shift Left Click
+	//  > Block Break (Only if the tool allows.)
+	
+	
+	public void registerTool()
 }

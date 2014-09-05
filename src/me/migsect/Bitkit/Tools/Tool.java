@@ -13,6 +13,7 @@ public abstract class Tool
 	public final String getName(){return name;}
 	public final boolean canBreak(){return canBreak;}
 	
+	// location will either be the block that is clicked or if the player clicks air
 	public abstract void rightClick(Location loc, ItemStack tool);
 	public abstract void leftClick(Location loc, ItemStack tool);
 	public abstract void shiftRightClick(Location loc, ItemStack tool);

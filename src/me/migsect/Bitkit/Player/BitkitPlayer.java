@@ -11,4 +11,5 @@ public class BitkitPlayer
 	private Player player;
 	
 	private List<ItemStack> palette = new ArrayList<ItemStack>();
+	private List<> blockHistory = new ArryaList
 }
