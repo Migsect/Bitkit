@@ -11,5 +11,15 @@ public class BitkitPlayer
 	private Player player;
 	
 	private List<ItemStack> palette = new ArrayList<ItemStack>();
-	private List<> blockHistory = new ArryaList
+	private List<BlockAction> blockHistory = new ArrayList<BlockAction>();
+	
+	public BitkitPlayer(Player player)
+	{
+		this.player = player;
+	}
+	
+	public Player getPlayer()
+	{
+		return player;
+	}
 }
