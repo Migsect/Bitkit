@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 
 public class CommandHandler implements CommandExecutor
 {
+	@SuppressWarnings("unused")
 	private Bitkit plugin;
 	private static HashMap<String, BaseCommand> commands = new HashMap<String, BaseCommand>();
 	

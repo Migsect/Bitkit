@@ -10,7 +10,9 @@ public class BitkitPlayer
 {
 	private Player player;
 	
+	@SuppressWarnings("unused")
 	private List<ItemStack> palette = new ArrayList<ItemStack>();
+	@SuppressWarnings("unused")
 	private List<BlockAction> blockHistory = new ArrayList<BlockAction>();
 	
 	public BitkitPlayer(Player player)

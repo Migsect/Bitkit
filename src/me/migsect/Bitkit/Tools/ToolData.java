@@ -3,6 +3,8 @@ package me.migsect.Bitkit.Tools;
 import java.util.HashMap;
 import java.util.List;
 
+import me.migsect.Bitkit.Player.BitkitPlayer;
+
 import org.bukkit.inventory.ItemStack;
 
 public class ToolData
@@ -11,13 +13,14 @@ public class ToolData
 	ToolHandler handler;
 	
 	ItemStack item;
+	BitkitPlayer holdingPlayer;
 	HashMap<String, String> data = new HashMap<String, String>();
 	
 	
-	public ToolData(ItemStack item, ToolHandler handler)
+	public ToolData(ItemStack item, ToolHandler handler, BitkitPlayer player)
 	{
 		this.handler = handler;
-		
+		this.holdingPlayer = player;
 		this.item = item;
 		this.constructData();
 	}
@@ -29,7 +32,11 @@ public class ToolData
 		{
 			data.put("tool", "Block");
 		}
-		if(!lore.get(0).startsWith("Tool: ")) return;
+		if(!item.getType().isBlock() && !lore.get(0).startsWith("Tool: ")) return;
+		if(!item.getType().isBlock())
+		{
+			data.put("tool", "Block");
+		}
 		for(int i = 0; i < lore.size(); i++)
 		{
 			if(lore.get(i).startsWith("Tool: "))data.put("tool", lore.get(0).substring(6));
@@ -40,6 +47,10 @@ public class ToolData
 		}
 	}
 	
+	public Tool getToolType()
+	{
+		return handler.getTool(data.get("tool"));
+	}
 	public String getData(String string)
 	{
 		return data.get(string);

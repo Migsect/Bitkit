@@ -1,6 +1,8 @@
 package me.migsect.Bitkit.Tools;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import me.migsect.Bitkit.Bitkit;
 
@@ -27,6 +29,18 @@ public class ToolHandler
 	
 	public void registerTool(Tool tool)
 	{
-			
+			tools.put(tool.getName(), tool);
+	}
+	
+	public Tool getTool(String name)
+	{
+		return tools.get(name);
+	}
+	
+	public List<Tool> getToolTypes()
+	{
+		List<Tool> newList = new ArrayList<Tool>();
+		newList.addAll(tools.values());
+		return newList;
 	}
 }
