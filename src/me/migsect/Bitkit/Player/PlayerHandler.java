@@ -25,6 +25,10 @@ public class PlayerHandler
 	{
 		players.remove(player.getName());
 	}
+	public void deregisterPlayer(BitkitPlayer player)
+	{
+		deregisterPlayer(player.getPlayer());
+	}
 	
 	public BitkitPlayer getPlayer(String playerName)
 	{

@@ -3,10 +3,12 @@ package me.migsect.Bitkit;
 import java.util.logging.Logger;
 
 import me.migsect.Bitkit.Commands.CommandHandler;
+import me.migsect.Bitkit.Listeners.ClickListener;
 import me.migsect.Bitkit.Player.PlayerHandler;
 import me.migsect.Bitkit.Tools.ToolHandler;
 
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Bitkit extends JavaPlugin
@@ -25,11 +27,16 @@ public class Bitkit extends JavaPlugin
 		this.logger.info(pdf.getName() + " Version " + pdf.getVersion() + " has been enabled.");
 		
 		// Listener Handling
+		PluginManager pm = this.getServer().getPluginManager();
+		pm.registerEvents(new ClickListener(this), this);
 		
 		// Config Handling
+		getConfig().options().copyDefaults(true);
+		saveConfig();
 		
 		// Command handling
 		commandHandler = new CommandHandler(this);
+		getCommand(".").setExecutor(commandHandler);
 		
 		// Player Handling
 		playerHandler = new PlayerHandler();
