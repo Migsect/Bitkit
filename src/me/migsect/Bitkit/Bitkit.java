@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import me.migsect.Bitkit.Commands.CommandHandler;
 import me.migsect.Bitkit.Listeners.ClickListener;
+import me.migsect.Bitkit.MenuGUI.MenuHandler;
 import me.migsect.Bitkit.Player.PlayerHandler;
 import me.migsect.Bitkit.Tools.ToolHandler;
 
@@ -18,6 +19,7 @@ public class Bitkit extends JavaPlugin
 	public CommandHandler commandHandler;
 	public PlayerHandler playerHandler;
 	public ToolHandler toolHandler;
+	public MenuHandler menuHandler;
 	
 	// Enabling
 	public void onEnable()
@@ -43,6 +45,9 @@ public class Bitkit extends JavaPlugin
 		
 		// Tool Handling
 		toolHandler = new ToolHandler(this);
+		
+		// Menu Handler
+		menuHandler = new MenuHandler();
 	}
 	
 	// Disabling

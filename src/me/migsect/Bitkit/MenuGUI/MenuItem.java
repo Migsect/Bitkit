@@ -3,6 +3,8 @@ package me.migsect.Bitkit.MenuGUI;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.migsect.Bitkit.Player.BitkitPlayer;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,15 +17,16 @@ public abstract class MenuItem
 	List<String> loreText = new ArrayList<String>();
 	Material material = Material.GRASS;
 	int data = 0; // this refers to colors and stuff.
+	Menu menu;
 	
-	public MenuItem()
+	public MenuItem(Menu menu)
 	{
-		
+		this.menu = menu;
 	}
 	
 	// On Click can do a multitude of things.  Firstly it can do a one time
 	//   effect.  On the other hand it may toggle a state.
-	public abstract void onClick();
+	public abstract void onClick(BitkitPlayer player);
 	
 	
 	protected ItemStack generateItemStack(){
