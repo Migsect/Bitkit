@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
@@ -40,13 +41,19 @@ public class PlayerListener implements Listener
 	
 	public void onPlayerMenuSelect(InventoryClickEvent event)
 	{
-		BitkitPlayer player = plugin.playerHandler.getPlayer((Player) event.getWhoClicked());
-		Inventory inv = event.getInventory();
-		if(!plugin.menuHandler.isActiveMenu(inv)) return;
-		event.setCancelled(true);
-		Menu menu = plugin.menuHandler.getMenu(inv);
-		int slot = event.getSlot();
+		Player player = (Player)event.getWhoClicked();
+		if(!plugin.menuHandler.hasActiveMenu(player)) return;
+		Menu menu = plugin.menuHandler.getMenu(player);
 		
-		menu.getItem(slot).onClick(player);
+		int click_slot = event.getSlot();
+		menu.clickOption(click_slot);
+	}      
+	public void onPlayerMenuClose(InventoryCloseEvent event)
+	{
+		Player player = (Player)event.getPlayer();
+		if(!plugin.menuHandler.hasActiveMenu(player)) return;
+		Menu menu = plugin.menuHandler.getMenu(player);
+		
+		menu.close();
 	}
 }
