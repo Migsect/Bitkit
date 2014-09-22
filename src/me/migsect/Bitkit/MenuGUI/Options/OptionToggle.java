@@ -39,15 +39,6 @@ public class OptionToggle extends Option
 	public void onClick(BitkitPlayer player)
 	{
 		player.toggleToggle(option);
-		
-		
-		String store_item_name = item_name;
-		List<String> store_lore_text = lore_text;
-		Material store_material = material;
-		short store_material_date = material_data;
-		
-		item_name = switch_item_name;
-		
 	}
 	
 	// this will now have different items depending on the state of the player's toggle.

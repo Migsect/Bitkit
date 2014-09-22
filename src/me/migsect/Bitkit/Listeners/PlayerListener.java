@@ -2,7 +2,6 @@ package me.migsect.Bitkit.Listeners;
 
 import me.migsect.Bitkit.Bitkit;
 import me.migsect.Bitkit.MenuGUI.Menu;
-import me.migsect.Bitkit.Player.BitkitPlayer;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +10,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.Inventory;
 
 // This class will listen to player things like logging in and logging out.
 public class PlayerListener implements Listener
@@ -38,19 +36,26 @@ public class PlayerListener implements Listener
 		Player player = event.getPlayer();
 		plugin.playerHandler.deregisterPlayer(player);
 	}
-	
+
+	@EventHandler
 	public void onPlayerMenuSelect(InventoryClickEvent event)
 	{
 		Player player = (Player)event.getWhoClicked();
+		player.sendMessage("Slot Selected: " + event.getSlot());
+		plugin.logger.info("Slot Selected: " + event.getSlot());
 		if(!plugin.menuHandler.hasActiveMenu(player)) return;
 		Menu menu = plugin.menuHandler.getMenu(player);
 		
 		int click_slot = event.getSlot();
 		menu.clickOption(click_slot);
-	}      
+	}
+
+	@EventHandler
 	public void onPlayerMenuClose(InventoryCloseEvent event)
 	{
 		Player player = (Player)event.getPlayer();
+		player.sendMessage("Inventory Closed");
+		plugin.logger.info("Inventory Close");
 		if(!plugin.menuHandler.hasActiveMenu(player)) return;
 		Menu menu = plugin.menuHandler.getMenu(player);
 		

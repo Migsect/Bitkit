@@ -4,8 +4,10 @@ import java.util.logging.Logger;
 
 import me.migsect.Bitkit.Commands.CommandHandler;
 import me.migsect.Bitkit.Listeners.ClickListener;
+import me.migsect.Bitkit.Listeners.PlayerListener;
 import me.migsect.Bitkit.MenuGUI.MenuHandler;
 import me.migsect.Bitkit.Player.PlayerHandler;
+import me.migsect.Bitkit.Tools.BlockTool;
 import me.migsect.Bitkit.Tools.ToolHandler;
 
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -31,6 +33,7 @@ public class Bitkit extends JavaPlugin
 		// Listener Handling
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvents(new ClickListener(this), this);
+		pm.registerEvents(new PlayerListener(this), this);
 		
 		// Config Handling
 		getConfig().options().copyDefaults(true);
@@ -45,6 +48,7 @@ public class Bitkit extends JavaPlugin
 		
 		// Tool Handling
 		toolHandler = new ToolHandler(this);
+		toolHandler.registerTool(new BlockTool());
 		
 		// Menu Handler
 		menuHandler = new MenuHandler();

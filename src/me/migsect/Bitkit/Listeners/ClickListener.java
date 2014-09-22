@@ -37,10 +37,13 @@ public class ClickListener implements Listener
 		ItemStack item = event.getPlayer().getItemInHand();
 		BitkitPlayer player = plugin.playerHandler.getPlayer(event.getPlayer());
 		ToolData toolData = new ToolData(item, plugin.toolHandler, player);
+		
+		// we need to make sure the tool has data.
+		if(!toolData.hasData("tool")) return;
 		if(event.getAction() == Action.RIGHT_CLICK_AIR)
 		{
-			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftRightClickAir(event.getClickedBlock().getLocation(), toolData);
-			else toolData.getToolType().rightClickAir(event.getClickedBlock().getLocation(), toolData);
+			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftRightClickAir(event.getPlayer().getLocation(), toolData);
+			else toolData.getToolType().rightClickAir(event.getPlayer().getLocation(), toolData);
 			
 		}
 		
@@ -53,15 +56,15 @@ public class ClickListener implements Listener
 		}
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR)
 		{
-			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftRightClick(event.getClickedBlock().getLocation(), toolData);
-			else toolData.getToolType().rightClick(event.getClickedBlock().getLocation(), toolData);
+			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftRightClick(event.getPlayer().getLocation(), toolData);
+			else toolData.getToolType().rightClick(event.getPlayer().getLocation(), toolData);
 			
 		}
 		
 		if(event.getAction() == Action.LEFT_CLICK_AIR)
 		{
-			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftLeftClickAir(event.getClickedBlock().getLocation(), toolData);
-			else toolData.getToolType().leftClickAir(event.getClickedBlock().getLocation(), toolData);
+			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftLeftClickAir(event.getPlayer().getLocation(), toolData);
+			else toolData.getToolType().leftClickAir(event.getPlayer().getLocation(), toolData);
 			
 			
 		}
@@ -76,8 +79,8 @@ public class ClickListener implements Listener
 		}
 		if(event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR)
 		{
-			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftLeftClick(event.getClickedBlock().getLocation(), toolData);
-			else toolData.getToolType().leftClick(event.getClickedBlock().getLocation(), toolData);
+			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftLeftClick(event.getPlayer().getLocation(), toolData);
+			else toolData.getToolType().leftClick(event.getPlayer().getLocation(), toolData);
 			
 			
 		}
@@ -96,6 +99,9 @@ public class ClickListener implements Listener
 			ItemStack item = event.getPlayer().getItemInHand();
 			BitkitPlayer player = plugin.playerHandler.getPlayer(event.getPlayer());
 			ToolData toolData = new ToolData(item, plugin.toolHandler, player);
+
+			// we need to make sure the tool has data.
+			if(!toolData.hasData("tool")) return;
 			
 			if(!toolData.getToolType().canBreak())
 			{

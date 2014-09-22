@@ -9,7 +9,6 @@ import me.migsect.Bitkit.MenuGUI.Options.Option;
 import me.migsect.Bitkit.Player.BitkitPlayer;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,7 +19,6 @@ public class Menu
 	private int max_slots = 54; // Slots the inventory will have.
 	private String inv_title; // title of the inventory.  This cannot be mutated.
 	
-	private Bitkit plugin;
 	private MenuHandler handler;
 	
 	private HashMap<Integer,Option> options = new HashMap<Integer, Option>(); // a list of all the items in the inventory.
@@ -29,7 +27,6 @@ public class Menu
 	public Menu(BitkitPlayer player, Bitkit plugin, String menu_title)
 	{
 		this.player = player;
-		this.plugin = plugin;
 		this.handler = plugin.menuHandler;
 		this.handler.register(this);
 		this.inv_title = menu_title;

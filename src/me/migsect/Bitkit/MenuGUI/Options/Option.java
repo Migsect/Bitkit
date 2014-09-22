@@ -3,7 +3,6 @@ package me.migsect.Bitkit.MenuGUI.Options;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.migsect.Bitkit.Bitkit;
 import me.migsect.Bitkit.MenuGUI.Menu;
 import me.migsect.Bitkit.Player.BitkitPlayer;
 

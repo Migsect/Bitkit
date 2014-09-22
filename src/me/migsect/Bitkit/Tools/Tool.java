@@ -4,9 +4,9 @@ import org.bukkit.Location;
 
 public abstract class Tool
 {
-	protected final String tag = "tool";
-	protected final String displayName = "Tool";
-	protected final boolean canBreakBlocks = true;
+	protected String tag = "tool";
+	protected String displayName = "Tool";
+	protected boolean canBreakBlocks = true;
 
 
 	public final String getTag(){return tag;}
