@@ -3,6 +3,7 @@ package me.migsect.Bitkit;
 import java.util.logging.Logger;
 
 import me.migsect.Bitkit.Commands.CommandHandler;
+import me.migsect.Bitkit.Commands.CommandHeader;
 import me.migsect.Bitkit.Listeners.ClickListener;
 import me.migsect.Bitkit.Listeners.PlayerListener;
 import me.migsect.Bitkit.MenuGUI.MenuHandler;
@@ -43,9 +44,11 @@ public class Bitkit extends JavaPlugin
 		commandHandler = new CommandHandler(this);
 		getCommand(".").setExecutor(commandHandler);
 		
+		commandHandler.register(new CommandHeader(this));
+		
 		// Player Handling
 		playerHandler = new PlayerHandler();
-		
+		playerHandler.registerAllPlayters();
 		// Tool Handling
 		toolHandler = new ToolHandler(this);
 		toolHandler.registerTool(new BlockTool());
@@ -61,6 +64,8 @@ public class Bitkit extends JavaPlugin
 		PluginDescriptionFile pdf = this.getDescription();
 		this.logger.info(pdf.getName() + " has been disabled");
 		
+		// Player handling
+		playerHandler.deregisterAllPlayters();
 	}
 	
 	

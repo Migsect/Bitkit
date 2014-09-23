@@ -65,4 +65,10 @@ public class ToolData
 	{
 		return item;
 	}
+	
+	// getBitkitPlayer returns the holding player of this tool.
+	public BitkitPlayer getHoldingPlayer()
+	{
+		return holdingPlayer;
+	}
 }

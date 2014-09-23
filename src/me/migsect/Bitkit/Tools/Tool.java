@@ -1,6 +1,7 @@
 package me.migsect.Bitkit.Tools;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 
 public abstract class Tool
 {
@@ -14,18 +15,18 @@ public abstract class Tool
 	public final boolean canBreak(){return canBreakBlocks;}
 	
 	// location will either be the block that is clicked or if the player clicks air
-	public abstract void blockBreak(Location loc, ToolData data);
-	public abstract void shiftBlockBreak(Location loc, ToolData data);
+	public abstract void blockBreak(Block block, ToolData data);
+	public abstract void shiftBlockBreak(Block block, ToolData data);
 	
 	public abstract void rightClick(Location loc, ToolData data);
 	public abstract void leftClick(Location loc, ToolData data);
 	public abstract void shiftRightClick(Location loc, ToolData data);
 	public abstract void shiftLeftClick(Location loc, ToolData data);
 	
-	public abstract void rightClickBlock(Location loc, ToolData data);
-	public abstract void leftClickBlock(Location loc, ToolData data);
-	public abstract void shiftRightClickBlock(Location loc, ToolData data);
-	public abstract void shiftLeftClickBlock(Location loc, ToolData data);
+	public abstract void rightClickBlock(Block block, ToolData data);
+	public abstract void leftClickBlock(Block block, ToolData data);
+	public abstract void shiftRightClickBlock(Block block, ToolData data);
+	public abstract void shiftLeftClickBlock(Block block, ToolData data);
 	
 	public abstract void rightClickAir(Location loc, ToolData data);
 	public abstract void leftClickAir(Location loc, ToolData data);

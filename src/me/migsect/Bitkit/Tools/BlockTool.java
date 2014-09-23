@@ -2,7 +2,9 @@ package me.migsect.Bitkit.Tools;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 
 public class BlockTool extends Tool
 {
@@ -10,13 +12,18 @@ public class BlockTool extends Tool
 	{
 		this.tag = "block";
 		this.displayName = "Block";
-		this.canBreakBlocks = true;
+		this.canBreakBlocks = false;
 	}
 	@Override
 	public void blockBreak(Block block, ToolData data)
 	{
 		ItemStack item = data.getItem();
+		MaterialData mat_data = item.getData();
 		
+		BlockState state = block.getState();
+		state.setType(mat_data.getItemType());
+		state.setData(mat_data);
+		state.update(true);
 	}
 
 	@Override
@@ -55,28 +62,28 @@ public class BlockTool extends Tool
 	}
 
 	@Override
-	public void rightClickBlock(Location loc, ToolData data)
+	public void rightClickBlock(Block block, ToolData data)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void leftClickBlock(Location loc, ToolData data)
+	public void leftClickBlock(Block block, ToolData data)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void shiftRightClickBlock(Location loc, ToolData data)
+	public void shiftRightClickBlock(Block block, ToolData data)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void shiftLeftClickBlock(Location loc, ToolData data)
+	public void shiftLeftClickBlock(Block block, ToolData data)
 	{
 		// TODO Auto-generated method stub
 		

@@ -49,8 +49,8 @@ public class ClickListener implements Listener
 		
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK)
 		{
-			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftRightClickBlock(event.getClickedBlock().getLocation(), toolData);
-			else toolData.getToolType().rightClickBlock(event.getClickedBlock().getLocation(), toolData);
+			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftRightClickBlock(event.getClickedBlock(), toolData);
+			else toolData.getToolType().rightClickBlock(event.getClickedBlock(), toolData);
 			
 			
 		}
@@ -71,8 +71,8 @@ public class ClickListener implements Listener
 		
 		if(event.getAction() == Action.LEFT_CLICK_BLOCK)
 		{
-			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftLeftClickBlock(event.getClickedBlock().getLocation(), toolData);
-			else toolData.getToolType().leftClickBlock(event.getClickedBlock().getLocation(), toolData);
+			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftLeftClickBlock(event.getClickedBlock(), toolData);
+			else toolData.getToolType().leftClickBlock(event.getClickedBlock(), toolData);
 			
 			
 			
@@ -106,10 +106,9 @@ public class ClickListener implements Listener
 			if(!toolData.getToolType().canBreak())
 			{
 				event.setCancelled(true);
-				return;
 			}
-			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftBlockBreak(event.getBlock().getLocation(), toolData);
-			else toolData.getToolType().blockBreak(event.getBlock().getLocation(), toolData);
+			if(event.getPlayer().isSneaking()) toolData.getToolType().shiftBlockBreak(event.getBlock(), toolData);
+			else toolData.getToolType().blockBreak(event.getBlock(), toolData);
 			
 	}
 }
