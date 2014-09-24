@@ -5,16 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class BitkitPlayer
 {
 	private Player player;
 	
-	@SuppressWarnings("unused")
-	private List<ItemStack> palette = new ArrayList<ItemStack>();
-	@SuppressWarnings("unused")
-	private List<BlockAction> blockHistory = new ArrayList<BlockAction>();
+	private List<BlockAction> undo_list = new ArrayList<BlockAction>();
+	private List<BlockAction> redo_list = new ArrayList<BlockAction>();
+	int max_redos = 100; // TODO: make these configurable.
+	int max_undos = 100;
 	
 	private HashMap<String, Boolean> toggled_options = new HashMap<String, Boolean>();
 	
@@ -53,5 +52,47 @@ public class BitkitPlayer
 		}
 		toggled_options.put(toggled_opt, !toggled_options.get(toggled_opt));
 		
+	}
+	
+	public void addUndoAction(BlockAction action)
+	{
+		if(max_undos == undo_list.size()) undo_list.remove(0);
+		undo_list.add(action);
+	}
+	public void addRedoAction(BlockAction action)
+	{
+		if(max_redos == redo_list.size()) redo_list.remove(0);
+		redo_list.add(action);
+	}
+	
+	// []Actions() will start on the last put in item and execute down the stack
+	//   until the end.   Any redo or undo will be placed in the other list.
+	public void undoActions(int num)
+	{
+		// We go backwards because of redos being added.
+		for(int i = undo_list.size(); i >= undo_list.size() - num; i--)
+		{
+			BlockAction new_redo = undo_list.get(i).doBlocks();
+			redo_list.add(new_redo);
+		}
+	}
+	public void redoActions(int num)
+	{
+		for(int i = redo_list.size(); i >= redo_list.size() - num; i--)
+		{
+			BlockAction new_undo = redo_list.get(i).doBlocks();
+			redo_list.add(new_undo);
+		}
+	}
+	
+	// purge[]() will clear the lists of their actions.  This can be used whenever
+	//   a player wishes to clean their history.
+	public void purgeUndoActions()
+	{
+		undo_list.clear();
+	}
+	public void purgeRedoActions()
+	{
+		redo_list.clear();
 	}
 }
