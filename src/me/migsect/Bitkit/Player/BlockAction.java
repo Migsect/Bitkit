@@ -1,6 +1,8 @@
 package me.migsect.Bitkit.Player;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -13,10 +15,14 @@ public class BlockAction
 	//   It will make life easier by handling undos and redos.
 	List<BlockState> states = new ArrayList<BlockState>();
 	BitkitPlayer acting_player;
+	Date time_of_action;
 	
 	public BlockAction(BitkitPlayer player)
 	{
 		this.acting_player = player;
+		Calendar cal = Calendar.getInstance();
+		time_of_action = cal.getTime();
+		
 	}
 	
 	// addBlock() will add a block state to the list.
