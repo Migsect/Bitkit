@@ -12,8 +12,10 @@ public class BitkitPlayer
 	
 	private List<BlockAction> undo_list = new ArrayList<BlockAction>();
 	private List<BlockAction> redo_list = new ArrayList<BlockAction>();
-	int max_redos = 100; // TODO: make these configurable.
-	int max_undos = 100;
+	private int max_block_redos = 1000; // TODO: make these configurable.
+	private int max_block_undos = 1000;
+	private int block_redos = 0;
+	private int block_undos = 0;
 	
 	private HashMap<String, Boolean> toggled_options = new HashMap<String, Boolean>();
 	
@@ -56,12 +58,20 @@ public class BitkitPlayer
 	
 	public void addUndoAction(BlockAction action)
 	{
-		if(max_undos == undo_list.size()) undo_list.remove(0);
+		while(max_block_undos < block_undos)
+		{
+			block_undos -= undo_list.get(0).getBlockCount();
+			undo_list.remove(0);
+		}
 		undo_list.add(action);
 	}
 	public void addRedoAction(BlockAction action)
 	{
-		if(max_redos == redo_list.size()) redo_list.remove(0);
+		while(max_block_redos < block_redos)
+		{
+			block_redos -= redo_list.get(0).getBlockCount();
+			redo_list.remove(0);
+		}
 		redo_list.add(action);
 	}
 	
@@ -69,16 +79,22 @@ public class BitkitPlayer
 	//   until the end.   Any redo or undo will be placed in the other list.
 	public void undoActions(int num)
 	{
+		int undo_size = undo_list.size();
 		// We go backwards because of redos being added.
-		for(int i = undo_list.size(); i >= undo_list.size() - num; i--)
+		if(num > undo_list.size()) num = undo_list.size(); // make sure we don't go into negatives and exceed bounds.
+		if(undo_list.size() == 0) return;
+		for(int i = undo_size - 1; i >= undo_size - num; i--)
 		{
 			BlockAction new_redo = undo_list.get(i).doBlocks();
 			redo_list.add(new_redo);
+			undo_list.remove(i);
 		}
 	}
 	public void redoActions(int num)
 	{
-		for(int i = redo_list.size(); i >= redo_list.size() - num; i--)
+		if(num > redo_list.size()) num = undo_list.size();
+		if(redo_list.size() == 0) return;
+		for(int i = redo_list.size() - 1; i >= redo_list.size() - num; i--)
 		{
 			BlockAction new_undo = redo_list.get(i).doBlocks();
 			redo_list.add(new_undo);

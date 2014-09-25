@@ -1,5 +1,7 @@
 package me.migsect.Bitkit.Tools;
 
+import me.migsect.Bitkit.Player.BlockAction;
+
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -13,12 +15,17 @@ public class BlockTool extends Tool
 		this.tag = "block";
 		this.displayName = "Block";
 		this.canBreakBlocks = false;
+		this.canShiftBreakBlocks = true;
 	}
 	@Override
 	public void blockBreak(Block block, ToolData data)
 	{
 		ItemStack item = data.getItem();
 		MaterialData mat_data = item.getData();
+		
+		BlockAction action = new BlockAction(data.getHoldingPlayer());
+		action.addBlock(block.getState());
+		data.getHoldingPlayer().addUndoAction(action);
 		
 		BlockState state = block.getState();
 		state.setType(mat_data.getItemType());

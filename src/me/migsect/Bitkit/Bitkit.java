@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import me.migsect.Bitkit.Commands.CommandHandler;
 import me.migsect.Bitkit.Commands.CommandHeader;
+import me.migsect.Bitkit.Commands.CommandUndo;
 import me.migsect.Bitkit.Listeners.ClickListener;
 import me.migsect.Bitkit.Listeners.PlayerListener;
 import me.migsect.Bitkit.MenuGUI.MenuHandler;
@@ -45,6 +46,7 @@ public class Bitkit extends JavaPlugin
 		getCommand(".").setExecutor(commandHandler);
 		
 		commandHandler.register(new CommandHeader(this));
+		commandHandler.register(new CommandUndo(this));
 		
 		// Player Handling
 		playerHandler = new PlayerHandler();

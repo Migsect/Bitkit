@@ -7,12 +7,14 @@ public abstract class Tool
 {
 	protected String tag = "tool";
 	protected String displayName = "Tool";
-	protected boolean canBreakBlocks = true;
+	protected boolean canBreakBlocks = false;
+	protected boolean canShiftBreakBlocks = true;
 
 
 	public final String getTag(){return tag;}
 	public final String getName(){return displayName;}
 	public final boolean canBreak(){return canBreakBlocks;}
+	public final boolean canShiftBreak(){return canShiftBreakBlocks;}
 	
 	// location will either be the block that is clicked or if the player clicks air
 	public abstract void blockBreak(Block block, ToolData data);
