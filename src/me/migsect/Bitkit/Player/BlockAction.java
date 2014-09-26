@@ -21,7 +21,7 @@ public class BlockAction
 	{
 		this.acting_player = player;
 		Calendar cal = Calendar.getInstance();
-		time_of_action = cal.getTime();
+		this.time_of_action = cal.getTime();
 		
 	}
 	
@@ -53,6 +53,11 @@ public class BlockAction
 		}
 		
 		return changes;
+	}
+	
+	public Date getTime()
+	{
+		return time_of_action;
 	}
 	
 }

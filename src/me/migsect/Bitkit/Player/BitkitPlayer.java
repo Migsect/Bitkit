@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.migsect.Bitkit.BKitHelper;
+
 import org.bukkit.entity.Player;
 
 public class BitkitPlayer
@@ -110,5 +112,22 @@ public class BitkitPlayer
 	public void purgeRedoActions()
 	{
 		redo_list.clear();
+	}
+	
+	// get[]s() will return the actions for redo or undo.  It should be noted that these
+	//   values shouldn't be mutated.
+	public List<BlockAction> getUndoActions()
+	{
+		return undo_list;
+	}
+	public List<BlockAction> getRedoActions()
+	{
+		return redo_list;
+	}
+	
+	// sendFMessage will send the player a message of a string formatted message.  The
+	public void sendFMessage(String message)
+	{
+		player.sendMessage(BKitHelper.formatString(message));
 	}
 }
