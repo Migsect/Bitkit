@@ -6,8 +6,10 @@ import java.util.List;
 import me.migsect.Bitkit.MenuGUI.Menu;
 import me.migsect.Bitkit.Player.BitkitPlayer;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class Option
 {
@@ -42,10 +44,15 @@ public abstract class Option
 	
 	public ItemStack generateItemStack()
 	{
-		ItemStack item = new ItemStack(material, 1, material_data);
-		item.getItemMeta().setLore(lore_text);
-		item.getItemMeta().setDisplayName(item_name);
+		ItemStack item = new ItemStack(this.material, 1, this.material_data);
 		
+		ItemMeta im = item.getItemMeta();
+		im.setDisplayName(item_name);
+		im.setLore(lore_text);
+		item.setItemMeta(im);
+		
+		Bukkit.getLogger().info("Opt1-Item Name: " + item_name);
+		Bukkit.getLogger().info("Opt2-Item Name: " + item.getItemMeta().getDisplayName());
 		return item;
 	}
 }

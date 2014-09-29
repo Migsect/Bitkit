@@ -44,6 +44,7 @@ public class PlayerListener implements Listener
 		player.sendMessage("Slot Selected: " + event.getSlot());
 		plugin.logger.info("Slot Selected: " + event.getSlot());
 		if(!plugin.menuHandler.hasActiveMenu(player)) return;
+		event.setCancelled(true);
 		Menu menu = plugin.menuHandler.getMenu(player);
 		
 		int click_slot = event.getSlot();

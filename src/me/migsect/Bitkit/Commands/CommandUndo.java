@@ -1,11 +1,15 @@
 package me.migsect.Bitkit.Commands;
 
+import java.util.Date;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.migsect.Bitkit.Bitkit;
 import me.migsect.Bitkit.Player.BitkitPlayer;
+import me.migsect.Bitkit.Player.BlockAction;
 
 public class CommandUndo extends BaseCommand
 {
@@ -30,7 +34,21 @@ public class CommandUndo extends BaseCommand
 		BitkitPlayer player = plugin.playerHandler.getPlayer((Player) sender);
 		if(args.length == 1)
 		{
-			player.undoActions(1);
+			long second_tol = 2;
+			List<BlockAction> undos = player.getUndoActions();
+			if(undos.isEmpty()) return true;
+			Date last_time = undos.get(undos.size()-1).getTime();
+			Date next_time = undos.get(undos.size()-1).getTime();
+			int counter = 0;
+			while((last_time.getTime() - next_time.getTime())/1000 < second_tol)
+			{
+				counter++;
+				if(undos.size() <= counter) break;
+				last_time = next_time;
+				next_time = undos.get(undos.size() - 1 - counter).getTime();
+				// Bukkit.getLogger().info("" + next_time.getTime() + " | " + last_time.getTime() + " | " + (next_time.getTime() - last_time.getTime()));
+			}
+			player.undoActions(counter);
 			return true;
 		}
 		else if(args.length == 2)

@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.migsect.Bitkit.Player.BitkitPlayer;
 
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 public class ToolData
@@ -33,13 +34,20 @@ public class ToolData
 			data.put("tool", "Block");
 		}
 		if(!item.getItemMeta().hasLore()) return;
-		if(!item.getType().isBlock() && !lore.get(0).startsWith("Tool: ")) return;
+		String lore_line_one = ChatColor.stripColor(lore.get(0));
+		if(!item.getType().isBlock() && !lore_line_one.startsWith("Tool: ")) return;
 		for(int i = 0; i < lore.size(); i++)
 		{
-			if(lore.get(i).startsWith("Tool: "))data.put("tool", lore.get(0).substring(6));
-			if(lore.get(i).startsWith("State: ")) data.put("state", lore.get(i).substring(7));
-			if(lore.get(i).startsWith("Size: "))data.put("size", lore.get(i).substring(6));
-			if(lore.get(i).startsWith("Region: "))data.put("region", lore.get(i).substring(8));
+			String lore_line = ChatColor.stripColor(lore.get(i));
+			if(lore_line.startsWith("Tool: "))data.put("tool", lore_line.substring(6));
+			if(lore_line.startsWith("Block: "))data.put("block", lore_line.substring(7));
+			if(lore_line.startsWith("Block Data: "))data.put("block_data", lore_line.substring(12));
+			if(lore_line.startsWith("State: "))data.put("state", lore_line.substring(7));
+			if(lore_line.startsWith("Reach: "))data.put("reach", lore_line.substring(7));
+			if(lore_line.startsWith("Size: "))data.put("size", lore_line.substring(6));
+			if(lore_line.startsWith("Region: "))data.put("region", lore_line.substring(8));
+			if(lore_line.startsWith("Corners: "))data.put("corners", lore_line.substring(9));
+			if(lore_line.startsWith("Surface: "))data.put("surface", lore_line.substring(9));
 			
 		}
 	}

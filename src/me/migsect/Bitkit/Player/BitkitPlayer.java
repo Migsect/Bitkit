@@ -14,8 +14,8 @@ public class BitkitPlayer
 	
 	private List<BlockAction> undo_list = new ArrayList<BlockAction>();
 	private List<BlockAction> redo_list = new ArrayList<BlockAction>();
-	private int max_block_redos = 1000; // TODO: make these configurable.
-	private int max_block_undos = 1000;
+	private int max_block_redos = 50000; // TODO: make these configurable.
+	private int max_block_undos = 50000;
 	private int block_redos = 0;
 	private int block_undos = 0;
 	

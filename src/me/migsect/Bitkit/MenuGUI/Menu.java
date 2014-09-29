@@ -41,8 +41,11 @@ public class Menu
 		active_slots.addAll(options.keySet());
 		for(int i = 0; i < active_slots.size(); i++)
 		{
-			ItemStack item = options.get(i).generateItemStack();
-			inventory.setItem(i, item);
+			if(!options.containsKey(active_slots.get(i))) continue;
+			Bukkit.getLogger().info("Option at slot " + active_slots.get(i) + " updated.");
+			ItemStack item = options.get(active_slots.get(i)).generateItemStack();
+			Bukkit.getLogger().info("Menu-Item Name: " + item.getItemMeta().getDisplayName());
+			inventory.setItem(active_slots.get(i), item);
 		}
 	}
 	
@@ -51,6 +54,7 @@ public class Menu
 	{
 		options.put(slot, opt);
 		opt.setMenu(this);
+		Bukkit.getLogger().info("Added Option to slot: " + slot);
 	}
 	
 	// remOption() will remove an option from a menu.  This should be used for a clean removal of an option.
@@ -89,8 +93,10 @@ public class Menu
 	// activeOption() will make the option perform its "onClick()" operation.
 	public void clickOption(int slot)
 	{
+		if(!options.containsKey(slot)) return;
 		Option option = options.get(slot);
 		option.onClick(player);
+		Bukkit.getLogger().info("Option clicked: " + slot);
 	}
 	
 	// getInventory() will return the inventory of this menu.  This is mostly used for checking.
