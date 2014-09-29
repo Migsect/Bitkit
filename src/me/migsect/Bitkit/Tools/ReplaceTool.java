@@ -3,6 +3,8 @@ package me.migsect.Bitkit.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.migsect.Bitkit.MenuGUI.Options.Option;
+import me.migsect.Bitkit.MenuGUI.Options.OptionItem;
 import me.migsect.Bitkit.Player.BlockAction;
 
 import org.bukkit.Bukkit;
@@ -24,6 +26,84 @@ public class ReplaceTool extends Tool
 		this.displayName = "Replacer";
 		this.canBreakBlocks = false;
 		this.canShiftBreakBlocks = true;
+	}
+	
+	@Override
+	public List<Option> makeToolBoxOptions()
+	{
+		List<Option> options = new ArrayList<Option>();
+		
+		// Basic Replacer Tool, does not have Surface nor Corners on.
+		ItemStack item1 = new ItemStack(Material.GOLD_SPADE);
+		ItemMeta im1 = item1.getItemMeta();
+		im1.setDisplayName(ChatColor.GOLD + "Replace Block Tool");
+		
+		
+		List<String> lore1 = new ArrayList<String>();
+		lore1.add(ChatColor.YELLOW + "Tool: Replacer");
+		lore1.add(ChatColor.YELLOW + "Block: " + Material.AIR.toString());
+		lore1.add(ChatColor.YELLOW + "Reach: 20");
+		lore1.add(ChatColor.YELLOW + "Surface: False");
+		lore1.add(ChatColor.YELLOW + "Corners: False");
+		im1.setLore(lore1);
+		
+		item1.setItemMeta(im1);
+		
+		OptionItem option1= new OptionItem(item1);
+		option1.setMaterial(Material.GOLD_SPADE);
+		option1.setName(ChatColor.GOLD + "Replacer Tool");
+		option1.getLoreText().add(ChatColor.WHITE + "Used to replace groups of blocks.");
+		options.add(option1);
+		
+		// Next item
+		ItemStack item2 = new ItemStack(Material.GOLD_SPADE);
+		ItemMeta im2 = item2.getItemMeta();
+		im2.setDisplayName(ChatColor.GOLD + "Replace Block Tool");
+		
+		
+		List<String> lore2 = new ArrayList<String>();
+		lore2.add(ChatColor.YELLOW + "Tool: Replacer");
+		lore2.add(ChatColor.YELLOW + "Block: " + Material.AIR.toString());
+		lore2.add(ChatColor.YELLOW + "Reach: 20");
+		lore2.add(ChatColor.YELLOW + "Surface: True");
+		lore2.add(ChatColor.YELLOW + "Corners: False");
+		im2.setLore(lore2);
+		
+		item2.setItemMeta(im2);
+		
+		OptionItem option2 = new OptionItem(item2);
+		option2.setMaterial(Material.GOLD_SPADE);
+		option2.setName(ChatColor.GOLD + "Replacer Tool");
+		option2.getLoreText().add(ChatColor.WHITE + "Used to replace groups of blocks.");
+		option2.getLoreText().add(ChatColor.WHITE + "[SURFACE VERSION]");
+		options.add(option2);
+
+		
+		// Next Item
+		ItemStack item3 = new ItemStack(Material.GOLD_SPADE);
+		ItemMeta im3 = item3.getItemMeta();
+		im3.setDisplayName(ChatColor.GOLD + "Replace Block Tool");
+		
+		
+		List<String> lore3 = new ArrayList<String>();
+		lore3.add(ChatColor.YELLOW + "Tool: Replacer");
+		lore3.add(ChatColor.YELLOW + "Block: " + Material.AIR.toString());
+		lore3.add(ChatColor.YELLOW + "Reach: 20");
+		lore3.add(ChatColor.YELLOW + "Surface: False");
+		lore3.add(ChatColor.YELLOW + "Corners: True");
+		im3.setLore(lore3);
+		
+		item3.setItemMeta(im3);
+		
+		OptionItem option3 = new OptionItem(item3);
+		option3.setMaterial(Material.GOLD_SPADE);
+		option3.setName(ChatColor.GOLD + "Replacer Tool");
+		option3.getLoreText().add(ChatColor.WHITE + "Used to replace groups of blocks.");
+		option3.getLoreText().add(ChatColor.WHITE + "[CORNERS VERSION]");
+		options.add(option3);
+	
+		
+		return options;
 	}
 	
 	@Override
@@ -71,7 +151,7 @@ public class ReplaceTool extends Tool
 			for(int c = 0; c < last_added.size(); c++)
 			{
 				BlockState check;
-				if(!corners && !surface)
+				if(!corners)
 				{
 					check = last_added.get(c).getBlock().getRelative(BlockFace.NORTH).getState();
 					if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check)) last_added_new.add(check);
@@ -86,8 +166,15 @@ public class ReplaceTool extends Tool
 					check = last_added.get(c).getBlock().getRelative(BlockFace.DOWN).getState();
 					if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check)) last_added_new.add(check);
 				}
-				else if(!surface)// this will do 26 checks and may be slower than above.  As such we give this as an option.
+				else // this will do 26 checks and may be slower than above.  As such we give this as an option.
 				{
+					// This is very inefficient compared to the above one and has room
+					//   for optimization.  Horever we will still need to check if each
+					//   block being checked is withing the list and there is no
+					//   easy way to calculating this.  (Of course the counter will depict
+					//   the overall square range the block will be from the center and
+					//   we will only add blocks in this range.  We would have corner blocks
+					//   and other wise.  This will be optimized later when the plugin needs it.
 					for(int x = -1; x < 2; x++)
 					{
 						for(int y = -1; y < 2; y++)
@@ -101,36 +188,7 @@ public class ReplaceTool extends Tool
 						}
 					}
 				}
-				else if(!corners)
-				{
-					check = last_added.get(c).getBlock().getRelative(BlockFace.NORTH).getState();
-					if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check) && nextToAir(check.getBlock())) last_added_new.add(check);
-					check = last_added.get(c).getBlock().getRelative(BlockFace.SOUTH).getState();
-					if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check) && nextToAir(check.getBlock())) last_added_new.add(check);
-					check = last_added.get(c).getBlock().getRelative(BlockFace.EAST).getState();
-					if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check) && nextToAir(check.getBlock())) last_added_new.add(check);
-					check = last_added.get(c).getBlock().getRelative(BlockFace.WEST).getState();
-					if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check) && nextToAir(check.getBlock())) last_added_new.add(check);
-					check = last_added.get(c).getBlock().getRelative(BlockFace.UP).getState();
-					if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check) && nextToAir(check.getBlock())) last_added_new.add(check);
-					check = last_added.get(c).getBlock().getRelative(BlockFace.DOWN).getState();
-					if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check) && nextToAir(check.getBlock())) last_added_new.add(check);
-				}
-				else
-				{
-					for(int x = -1; x < 2; x++)
-					{
-						for(int y = -1; y < 2; y++)
-						{
-							for(int z = -1; z < 2; z++)
-							{
-								if(x == 0 && y == 0 && z == 0) continue;
-								check = last_added.get(c).getBlock().getRelative(x, y, z).getState();
-								if(check.getData().equals(mat_data_break) && !to_change.contains(check) && !last_added.contains(check) && !last_added_new.contains(check) && nextToAir(check.getBlock())) last_added_new.add(check);		
-							}
-						}
-					}
-				}
+				
 				// Bukkit.getLogger().info("Checked: " + check.getBlock().getLocation().toString());
 			}
 			to_change.addAll(last_added);
@@ -142,9 +200,27 @@ public class ReplaceTool extends Tool
 		ItemStack replace_type = new ItemStack(block_type,1,block_data);
 		
 		BlockAction new_action = new BlockAction(data.getHoldingPlayer());
+		if(surface)
+		{
+			List<BlockState> new_to_change = new ArrayList<BlockState>();
+			for(int k = 0; k < to_change.size(); k++)
+			{
+				if(nextToAir(to_change.get(k).getBlock()))
+				{
+					new_to_change.add(to_change.get(k));
+				}
+			}
+			to_change = new_to_change;
+		}
 		for(int j = 0; j < to_change.size(); j++)
 		{
+			// We are going to handle surface checks within the block changing.
+			if(surface && !nextToAir(to_change.get(j).getBlock())) continue;
+			
+			// Adding the block to the action.
 			new_action.addBlock(to_change.get(j).getBlock().getState());
+			
+			// Actually doing the block change.
 			to_change.get(j).setType(replace_type.getType());
 			to_change.get(j).setData(replace_type.getData());
 			to_change.get(j).update(true);

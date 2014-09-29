@@ -1,5 +1,9 @@
 package me.migsect.Bitkit.Tools;
 
+import java.util.List;
+
+import me.migsect.Bitkit.MenuGUI.Options.Option;
+
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 
@@ -10,11 +14,13 @@ public abstract class Tool
 	protected boolean canBreakBlocks = false;
 	protected boolean canShiftBreakBlocks = true;
 
-
 	public final String getTag(){return tag;}
 	public final String getName(){return displayName;}
 	public final boolean canBreak(){return canBreakBlocks;}
 	public final boolean canShiftBreak(){return canShiftBreakBlocks;}
+	
+	// MakeOptions will make the options for the tool box for this tool.
+	public abstract List<Option> makeToolBoxOptions();
 	
 	// location will either be the block that is clicked or if the player clicks air
 	public abstract void blockBreak(Block block, ToolData data);

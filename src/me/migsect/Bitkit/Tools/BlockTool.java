@@ -1,5 +1,9 @@
 package me.migsect.Bitkit.Tools;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import me.migsect.Bitkit.MenuGUI.Options.Option;
 import me.migsect.Bitkit.Player.BlockAction;
 
 import org.bukkit.Location;
@@ -17,6 +21,15 @@ public class BlockTool extends Tool
 		this.canBreakBlocks = false;
 		this.canShiftBreakBlocks = true;
 	}
+	
+	@Override
+	public List<Option> makeToolBoxOptions()
+	{
+		List<Option> options = new ArrayList<Option>();
+		
+		return options;
+	}
+	
 	@Override
 	public void blockBreak(Block block, ToolData data)
 	{
