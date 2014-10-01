@@ -61,8 +61,8 @@ public class Bitkit extends JavaPlugin
 		
 		// Tool Handling
 		toolHandler = new ToolHandler(this);
-		toolHandler.registerTool(new BlockTool());
-		toolHandler.registerTool(new ReplaceTool());
+		toolHandler.registerTool(new BlockTool(this));
+		toolHandler.registerTool(new ReplaceTool(this));
 		
 		// Menu Handler
 		menuHandler = new MenuHandler();

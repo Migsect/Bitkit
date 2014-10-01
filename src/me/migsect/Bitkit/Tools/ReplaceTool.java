@@ -3,7 +3,11 @@ package me.migsect.Bitkit.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.migsect.Bitkit.Bitkit;
+import me.migsect.Bitkit.MenuGUI.Menu;
+import me.migsect.Bitkit.MenuGUI.Options.DataChange;
 import me.migsect.Bitkit.MenuGUI.Options.Option;
+import me.migsect.Bitkit.MenuGUI.Options.OptionDataChange;
 import me.migsect.Bitkit.MenuGUI.Options.OptionItem;
 import me.migsect.Bitkit.Player.BlockAction;
 
@@ -20,8 +24,9 @@ import org.bukkit.material.MaterialData;
 
 public class ReplaceTool extends Tool
 {
-	public ReplaceTool()
+	public ReplaceTool(Bitkit plugin)
 	{
+		super(plugin);
 		this.tag = "replacer";
 		this.displayName = "Replacer";
 		this.canBreakBlocks = false;
@@ -274,11 +279,17 @@ public class ReplaceTool extends Tool
 		
 	}
 
+	// Used to change different features of the tool.
 	@Override
 	public void shiftRightClick(Location loc, ToolData data)
 	{
-		// TODO Auto-generated method stub
+		Menu menu = new Menu(data.getHoldingPlayer(), plugin, this.displayName + "'s options.");
 		
+		OptionDataChange opt1 = new OptionDataChange(data.getData("surface"), "Surface", DataChange.TOGGLE);
+		menu.addOption(opt1, 1);
+		
+		
+		menu.open();
 	}
 
 	@Override

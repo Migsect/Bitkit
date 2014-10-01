@@ -2,6 +2,8 @@ package me.migsect.Bitkit.MenuGUI.Options;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -14,26 +16,59 @@ public class OptionDataChange extends Option
 	int change = 0;
 	DataChange type;
 	
+	/* data is the data that the option will change the data_disp to.
+	 * DataChange types determine what kind of data that will be changed.
+	 * data isn't required
+	 */
 	public OptionDataChange(String data, String data_disp, DataChange type)
 	{
-		this.data = data;
 		this.data_disp = data_disp;
 		this.type = type;
 		if(type == DataChange.INCREMENT)
 		{
 			this.change = 1;
+			this.material = Material.WATER_BUCKET;
+			this.item_name = ChatColor.GOLD + "Decrement " + data_disp + " By One";
 		}
 		else if(type == DataChange.DECREMENT)
 		{
 			this.change = -1;
+			this.material = Material.BUCKET;
+			this.item_name = ChatColor.GOLD + "Increment " + data_disp + " By One";
 		}
-	}
-	// For use with change or set values
-	public OptionDataChange(String data, DataChange type, int amount)
-	{
-		this.data = data;
-		this.type = type;
-		this.change = amount;
+		else if(type == DataChange.CHANGE)
+		{
+			this.material = Material.MILK_BUCKET;
+			this.item_name = ChatColor.GOLD + "Change " + data_disp + " To " + data;
+			try
+			{
+				this.change = Integer.parseInt(data);
+			}
+			catch (NumberFormatException e)
+			{
+				// Do nothing  It's 0 now.
+			}
+			
+		}
+		else if(type == DataChange.SET)
+		{
+			this.material = Material.ARROW;
+			this.item_name = ChatColor.GOLD + "Set " + data_disp + " To " + data;
+			this.data = data;
+		}
+		else if(type == DataChange.TOGGLE)
+		{
+			if(data == "true")
+			{
+				this.material = Material.REDSTONE;
+				this.item_name = ChatColor.GOLD + "Toggle " + data_disp + " To False";
+			}
+			else
+			{
+				this.material = Material.SUGAR;
+				this.item_name = ChatColor.GOLD + "Toggle " + data_disp + " To True";
+			}
+		}
 	}
 	// We are only going to mutate the data on that item.  Each DataChangeOption 
 	//   Should have a string to look for, this will be the data type.
@@ -73,7 +108,7 @@ public class OptionDataChange extends Option
 			}
 			num_data += change;
 			if(num_data < 0) num_data = 0;
-			new_lore = data_disp + ": ";
+			new_lore = data_disp + ": " + num_data;
 		}
 		else
 		{
@@ -83,8 +118,18 @@ public class OptionDataChange extends Option
 			}
 			if(type == DataChange.TOGGLE)
 			{
-				if(lore_data.equalsIgnoreCase("true")) new_lore = data_disp + ": " + "True";
-				new_lore = data_disp + ": " + "True";
+				if(lore_data.equalsIgnoreCase("true"))
+				{
+					new_lore = data_disp + ": " + "False";
+					this.material = Material.REDSTONE;
+					this.item_name = ChatColor.GOLD + "Toggle " + data_disp + " To True";
+				}
+				if(lore_data.equalsIgnoreCase("false"))
+				{
+					new_lore = data_disp + ": " + "True";
+					this.material = Material.SUGAR;
+					this.item_name = ChatColor.GOLD + "Toggle " + data_disp + " To False";
+				}
 			}
 		}
 		lore.set(found_i, new_lore);

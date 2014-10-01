@@ -1,7 +1,9 @@
 package me.migsect.Bitkit.Tools;
 
 import java.util.List;
+import java.util.ArrayList;
 
+import me.migsect.Bitkit.Bitkit;
 import me.migsect.Bitkit.MenuGUI.Options.Option;
 
 import org.bukkit.Location;
@@ -13,9 +15,21 @@ public abstract class Tool
 	protected String displayName = "Tool";
 	protected boolean canBreakBlocks = false;
 	protected boolean canShiftBreakBlocks = true;
+	protected Bitkit plugin;
+	/*	item_data is used as a means of remembering what kind of data that
+	 *  a tool carries.  This can is generally used for when you need to switch
+	 *  the data of a tool item and we need to list all that a tool has.
+	 */
+	protected List<String> item_data = new ArrayList<String>();
 
+	public Tool(Bitkit plugin)
+	{
+		this.plugin = plugin;
+	}
+	
 	public final String getTag(){return tag;}
 	public final String getName(){return displayName;}
+	public final List<String> getItemData(){return item_data;}
 	public final boolean canBreak(){return canBreakBlocks;}
 	public final boolean canShiftBreak(){return canShiftBreakBlocks;}
 	

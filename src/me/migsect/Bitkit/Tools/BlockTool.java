@@ -3,6 +3,7 @@ package me.migsect.Bitkit.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.migsect.Bitkit.Bitkit;
 import me.migsect.Bitkit.MenuGUI.Options.Option;
 import me.migsect.Bitkit.Player.BlockAction;
 
@@ -14,8 +15,9 @@ import org.bukkit.material.MaterialData;
 
 public class BlockTool extends Tool
 {
-	public BlockTool()
+	public BlockTool(Bitkit plugin)
 	{
+		super(plugin);
 		this.tag = "block";
 		this.displayName = "Block";
 		this.canBreakBlocks = false;
