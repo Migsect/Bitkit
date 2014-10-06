@@ -41,7 +41,7 @@ public class ReplaceTool extends Tool
 		// Basic Replacer Tool, does not have Surface nor Corners on.
 		ItemStack item1 = new ItemStack(Material.GOLD_SPADE);
 		ItemMeta im1 = item1.getItemMeta();
-		im1.setDisplayName(ChatColor.GOLD + "Replace Block Tool");
+		im1.setDisplayName(ChatColor.GOLD + "Replace Block Tool - AIR");
 		
 		
 		List<String> lore1 = new ArrayList<String>();
@@ -63,7 +63,7 @@ public class ReplaceTool extends Tool
 		// Next item
 		ItemStack item2 = new ItemStack(Material.GOLD_SPADE);
 		ItemMeta im2 = item2.getItemMeta();
-		im2.setDisplayName(ChatColor.GOLD + "Replace Block Tool");
+		im2.setDisplayName(ChatColor.GOLD + "Replace Block Tool - AIR");
 		
 		
 		List<String> lore2 = new ArrayList<String>();
@@ -87,7 +87,7 @@ public class ReplaceTool extends Tool
 		// Next Item
 		ItemStack item3 = new ItemStack(Material.GOLD_SPADE);
 		ItemMeta im3 = item3.getItemMeta();
-		im3.setDisplayName(ChatColor.GOLD + "Replace Block Tool");
+		im3.setDisplayName(ChatColor.GOLD + "Replace Block Tool - AIR");
 		
 		
 		List<String> lore3 = new ArrayList<String>();
@@ -284,9 +284,15 @@ public class ReplaceTool extends Tool
 	public void shiftRightClick(Location loc, ToolData data)
 	{
 		Menu menu = new Menu(data.getHoldingPlayer(), plugin, this.displayName + "'s options.");
-		
+
+		OptionDataChange opt0 = new OptionDataChange(data.getData("corners"), "Corners", DataChange.TOGGLE);
+		menu.addOption(opt0, 0);
 		OptionDataChange opt1 = new OptionDataChange(data.getData("surface"), "Surface", DataChange.TOGGLE);
 		menu.addOption(opt1, 1);
+		OptionDataChange opt2 = new OptionDataChange(data.getData("reach"), "Reach", DataChange.INCREMENT);
+		menu.addOption(opt2, 2);
+		OptionDataChange opt3 = new OptionDataChange(data.getData("reach"), "Reach", DataChange.DECREMENT);
+		menu.addOption(opt3, 3);
 		
 		
 		menu.open();
@@ -330,12 +336,15 @@ public class ReplaceTool extends Tool
 				lore.set(i, ChatColor.YELLOW + "Block Data: " + item_data);
 				has_data_spot = true;
 			}
-		}
+		} 
 		if(item_data != 0 && !has_data_spot)
 		{
 			lore.add(block_i + 1,ChatColor.YELLOW + "Block Data: " + item_data);
 		}
 		
+		String new_name = ChatColor.GOLD + "Replace Block Tool - " + item_mat + ":" + item_data;
+		
+		im.setDisplayName(new_name);
 		im.setLore(lore);
 		tool.setItemMeta(im);
 		

@@ -49,6 +49,24 @@ public class ToolData
 			if(lore_line.startsWith("Corners: "))data.put("corners", lore_line.substring(9));
 			if(lore_line.startsWith("Surface: "))data.put("surface", lore_line.substring(9));
 			
+			// Start all the clicks checking.
+			// For optimization reasons, we may need to have an iff the check what kind of tool
+			//   it is.
+			if(lore_line.startsWith("RC: "))data.put("surface", lore_line.substring(4));
+			if(lore_line.startsWith("LC: "))data.put("surface", lore_line.substring(4));
+			if(lore_line.startsWith("SRC: "))data.put("surface", lore_line.substring(5));
+			if(lore_line.startsWith("SLC: "))data.put("surface", lore_line.substring(5));
+			if(lore_line.startsWith("BB: "))data.put("surface", lore_line.substring(4));
+			if(lore_line.startsWith("SBB: "))data.put("surface", lore_line.substring(5));
+			if(lore_line.startsWith("RCB: "))data.put("surface", lore_line.substring(5));
+			if(lore_line.startsWith("LCB: "))data.put("surface", lore_line.substring(5));
+			if(lore_line.startsWith("SRCB: "))data.put("surface", lore_line.substring(6));
+			if(lore_line.startsWith("SLCB: "))data.put("surface", lore_line.substring(6));
+			if(lore_line.startsWith("RCA: "))data.put("surface", lore_line.substring(5));
+			if(lore_line.startsWith("LCA: "))data.put("surface", lore_line.substring(5));
+			if(lore_line.startsWith("SRCA: "))data.put("surface", lore_line.substring(6));
+			if(lore_line.startsWith("SLCA: "))data.put("surface", lore_line.substring(6));
+			
 		}
 	}
 	

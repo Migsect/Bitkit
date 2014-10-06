@@ -13,6 +13,7 @@ import me.migsect.Bitkit.Listeners.PlayerListener;
 import me.migsect.Bitkit.MenuGUI.MenuHandler;
 import me.migsect.Bitkit.Player.PlayerHandler;
 import me.migsect.Bitkit.Tools.BlockTool;
+import me.migsect.Bitkit.Tools.CommandTool;
 import me.migsect.Bitkit.Tools.ReplaceTool;
 import me.migsect.Bitkit.Tools.ToolHandler;
 
@@ -63,6 +64,7 @@ public class Bitkit extends JavaPlugin
 		toolHandler = new ToolHandler(this);
 		toolHandler.registerTool(new BlockTool(this));
 		toolHandler.registerTool(new ReplaceTool(this));
+		toolHandler.registerTool(new CommandTool(this));
 		
 		// Menu Handler
 		menuHandler = new MenuHandler();

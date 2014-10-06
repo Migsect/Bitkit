@@ -2,6 +2,7 @@ package me.migsect.Bitkit.MenuGUI.Options;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -28,13 +29,13 @@ public class OptionDataChange extends Option
 		{
 			this.change = 1;
 			this.material = Material.WATER_BUCKET;
-			this.item_name = ChatColor.GOLD + "Decrement " + data_disp + " By One";
+			this.item_name = ChatColor.GOLD + "Increment " + data_disp + " By One";
 		}
 		else if(type == DataChange.DECREMENT)
 		{
 			this.change = -1;
 			this.material = Material.BUCKET;
-			this.item_name = ChatColor.GOLD + "Increment " + data_disp + " By One";
+			this.item_name = ChatColor.GOLD + "Decrement " + data_disp + " By One";
 		}
 		else if(type == DataChange.CHANGE)
 		{
@@ -58,7 +59,7 @@ public class OptionDataChange extends Option
 		}
 		else if(type == DataChange.TOGGLE)
 		{
-			if(data == "true")
+			if(data.equalsIgnoreCase("true"))
 			{
 				this.material = Material.REDSTONE;
 				this.item_name = ChatColor.GOLD + "Toggle " + data_disp + " To False";
@@ -87,10 +88,11 @@ public class OptionDataChange extends Option
 		String lore_data = "";
 		for(int i = 0; i < lore.size(); i++)
 		{
-			if(lore.get(i).startsWith(data_disp + ": "))
+			if(ChatColor.stripColor(lore.get(i)).startsWith(data_disp + ": "))
 			{
 				found_i = i;
-				lore_data = lore.get(i).substring(data_disp.length() + 2);
+				Bukkit.getLogger().info(data_disp);
+				lore_data = ChatColor.stripColor(lore.get(i)).substring(data_disp.length() + 2);
 				break;
 			}
 		}
@@ -108,7 +110,7 @@ public class OptionDataChange extends Option
 			}
 			num_data += change;
 			if(num_data < 0) num_data = 0;
-			new_lore = data_disp + ": " + num_data;
+			new_lore = ChatColor.YELLOW + data_disp + ": " + num_data;
 		}
 		else
 		{
@@ -120,13 +122,13 @@ public class OptionDataChange extends Option
 			{
 				if(lore_data.equalsIgnoreCase("true"))
 				{
-					new_lore = data_disp + ": " + "False";
+					new_lore = ChatColor.YELLOW + data_disp + ": " + "False";
 					this.material = Material.REDSTONE;
 					this.item_name = ChatColor.GOLD + "Toggle " + data_disp + " To True";
 				}
 				if(lore_data.equalsIgnoreCase("false"))
 				{
-					new_lore = data_disp + ": " + "True";
+					new_lore = ChatColor.YELLOW + data_disp + ": " + "True";
 					this.material = Material.SUGAR;
 					this.item_name = ChatColor.GOLD + "Toggle " + data_disp + " To False";
 				}
@@ -135,6 +137,7 @@ public class OptionDataChange extends Option
 		lore.set(found_i, new_lore);
 		im.setLore(lore);
 		item.setItemMeta(im);
+		menu.updateInventory();
 	}
 
 }
